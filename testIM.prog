@@ -1,0 +1,40 @@
+0000_010_000_000000	// MEM_Inst: LDR_r2_r0_0 - - R0 <= M[R2 + 0]
+
+0000_010_001_000001	// MEM_Inst: LDR_r2_r1_1 - - R0 <= M[R2 + 0]
+
+0010_000_001_010_000	// DAT_Inst: ADD_r0_r1_r2- - R0 <= R2 + R1
+
+0001_001_010_000000	// MEM_Inst: STR_r1_r2_0 - - M[R2 + 0] <= R1
+
+0011_000_001_010_000	// DAT_Inst: SUB_r0_r1_r2 - -R2 <= R0 - R1
+
+0100_000_001_010_000	// DAT_Inst: INV_r0_r1_r2 - -R2 <= !R0
+
+0101_000_001_010_000	// DAT_Inst: SLL_r0_r1_r2 - -R2 <= R0 << by R1
+
+0110_000_001_010_000	// DAT_Inst: SRL_r0_r1_r2 - -R2 <= R0 >> by R1
+
+0111_000_001_010_000	// DAT_Inst: AND_r0_r1_r2 - -R2 <= R1 && R0
+
+1000_000_001_010_000	// DAT_Inst: ORR_r0_r1_r2 - -R2 <= R1 || R0
+
+1001_000_001_010_000	// DAT_Inst: SLT_r0_r1_r2 - -R2 <= 1 if R0 < R1
+
+0010_000_000_000_000	// DAT_Inst: ADD_r2_r0_r0 - -R0 <= R0 + R0
+
+1011_0000_01_000001	// FLO_Inst: BNE_r2_r0_0 - - BEQ if R0=R1 | PCn=28
+
+1100_0000_01_000000	// FLO_Inst: BEQ_r2_r0_0 - - BNE if R0!=R1 | PCn=28
+
+1101_000000000000	// FLO_Inst: JMP_0 - - - - - JUMP to addr 0
+/* 		
+MEM_Inst	X-X-X-X | X-X-X | X-X-X | X-X-X-X-X-X	  WrtDst <= MEM [RegS1 + Offset]
+		 -OPc-   -RegS1- -WrtDst-  -Offset-
+
+DAT_Inst	X-X-X-X | X-X-X | X-X-X | X-X-X | X-X-X   WrtDst <= RegS1 {OPc} RegS2
+		 -OPc-   -RegS1- -RegS2- -WrtDst- JUNK
+
+FLO_Inst 	X-X-X-X | X-X-X | X-X-X | X-X-X-X-X-X - - [JMP-12b Offset]
+		 -OPc-   -RegS1- -WrtDst-  -Offset-	  BXX -> [ PC + 2 + (Offset << 1) ]
+
+*/
